@@ -1,27 +1,20 @@
-// Navbar.js - This component renders the navigation bar with Sign Up and Login buttons.
+import { Link } from "react-router-dom";
 
-const Navbar = ({ setShowSignUp, setShowLogin }) => {
+const Navbar = () => {
   return (
-    // Container div for positioning the navigation bar at the top-right
-    <div className="absolute top-5 right-5 flex gap-3 text-gray-700">
-
-      {/* Sign Up button - Opens the sign-up modal when clicked */}
-      <button
-        className="px-4 py-2 rounded-lg font-semibold text-sm h-10 flex items-center text-black"
-        onClick={() => setShowSignUp(true)}
-      >
-        Sign Up
-      </button>
-
-      {/* Login button - Opens the login modal when clicked */}
-      <button
-        className="px-4 py-2 border rounded-lg font-semibold text-sm h-10 flex items-center text-black"
-        onClick={() => setShowLogin(true)}
-      >
-        Login
-      </button>
-      
-    </div>
+    <nav className="absolute top-5 right-5">
+      <ul className="flex space-x-6">
+        <li>
+          <Link to="/" className="text-white hover:text-blue-500">Home</Link>
+        </li>
+        <li>
+          <Link to="/login" className="text-white hover:text-blue-500">Login</Link>
+        </li>
+        <li>
+          <Link to="/signup" className="text-white hover:text-blue-500">Sign Up</Link>
+        </li>
+      </ul>
+    </nav>
   );
 };
 
