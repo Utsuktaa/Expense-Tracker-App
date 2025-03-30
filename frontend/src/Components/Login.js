@@ -1,3 +1,4 @@
+import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -19,14 +20,39 @@ const Login = () => {
     navigate("/otp-verification"); // Redirect to OTP page after login
   };
 
-  const handleGoogleLogin = () => {
-    alert("Google login clicked!");
-    // Implement your Google login logic here
+  const responseGoogle = (authResult) => {
+    try {
+      if (authResult.code) {
+        console.log(authResult.code);
+      } else {
+        console.log(authResult);
+        throw new Error(authResult);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
+  // const handleGoogleLogin = () => {
+  //   alert("Google login clicked!");
+  //   // Implement your Google login logic here
+  // };
+
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: responseGoogle,
+    onError: responseGoogle,
+    flow: "auth-code",
+  });
+
   return (
-    <div className="flex items-center justify-center h-screen bg-cover bg-center" style={{ backgroundImage: "url('/your-background-image.jpg')" }}>
-      <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md w-96 bg-opacity-80">
+    <div
+      className="flex items-center justify-center h-screen bg-cover bg-center"
+      style={{ backgroundImage: "url('/your-background-image.jpg')" }}
+    >
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-8 rounded-lg shadow-md w-96 bg-opacity-80"
+      >
         <h2 className="text-3xl font-bold mb-6 text-center">Login</h2>
 
         <label className="block mb-2">Email</label>
@@ -59,7 +85,6 @@ const Login = () => {
         </button>
 
         <div className="text-center mb-4">OR</div>
-
         <button
           type="button"
           onClick={handleGoogleLogin}
