@@ -1,38 +1,34 @@
-// App.js - This is the main application component that renders the homepage layout.
-
-import { useState } from "react";
-import Logo from "./Components/Logo"; // Importing the Logo component
-import Navbar from "./Components/Navbar"; // Importing the Navbar component
-import Intro from "./Components/Intro"; // Importing the Intro section component
-import SignUp from "./Components/SignUp"; // Importing the SignUp modal component
-import Login from "./Components/Login"; // Importing the Login modal component
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Logo from "./Components/Logo";
+import Navbar from "./Components/Navbar";
+import Hero from "./Components/Hero";
+import Login from "./Components/Login";
+import SignUp from "./Components/SignUp";
+import ForgotPassword from "./Components/ForgotPassword";
+import OtpVerification from "./Components/OtpVerification";
+import AdminLogin from "./Components/AdminLogin"; // Import AdminLogin component
+import AdminDashboard from "./Components/AdminDashboard"; // Import AdminDashboard component
 
 const App = () => {
-  // State variables to control the visibility of SignUp and Login modals
-  const [showSignUp, setShowSignUp] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
-
   return (
-    // Main container with full-screen background image
-    <div className="relative w-full h-screen bg-cover bg-center" 
-         style={{ backgroundImage: "url('/image/background.jpg')" }}>
-      
-      {/* Logo component - Displays the app logo */}
-      <Logo />
-
-      {/* Navbar component - Contains Sign Up and Login buttons */}
-      <Navbar setShowSignUp={setShowSignUp} setShowLogin={setShowLogin} />
-
-      {/* Intro component - Displays the introductory section */}
-      <Intro />
-      
-      {/* SignUp modal - Displays when showSignUp is true */}
-      {showSignUp && <SignUp onClose={() => setShowSignUp(false)} />}
-
-      {/* Login modal - Displays when showLogin is true */}
-      {showLogin && <Login onClose={() => setShowLogin(false)} />}
-      
-    </div>
+    <Router>
+      <div className="relative w-full h-screen bg-cover bg-center" style={{ backgroundImage: "url('/image/background.jpg')" }}>
+        <Logo />
+        
+        {/* Only render Navbar for non-admin routes */}
+        <Routes>
+          <Route path="/" element={<><Navbar /><Hero /></>} />
+          <Route path="/login" element={<><Navbar /><Login /></>} />
+          <Route path="/signup" element={<><Navbar /><SignUp /></>} />
+          <Route path="/forgot-password" element={<><Navbar /><ForgotPassword /></>} />
+          <Route path="/otp-verification" element={<><Navbar /><OtpVerification /></>} />
+          
+          {/* Admin Routes */}
+          <Route path="/admin" element={<AdminLogin />} /> {/* Admin Login (No Navbar) */}
+          <Route path="/admin-dashboard" element={<AdminDashboard />} /> {/* Admin Dashboard (No Navbar) */}
+        </Routes>
+      </div>
+    </Router>
   );
 };
 
