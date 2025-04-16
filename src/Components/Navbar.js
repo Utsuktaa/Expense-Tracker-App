@@ -5,7 +5,8 @@ const Navbar = () => {
     <nav className="absolute top-5 right-5">
       <ul className="flex space-x-6">
         <li>
-          <Link to="/" className="text-black hover:text-black-500">Home</Link>
+        <Link to="/" className="text-black hover:text-black-500">Home</Link>
+
         </li>
         <li>
           <Link to="/login" className="text-black hover:text-black-500">Login</Link>

@@ -6,13 +6,17 @@ import Login from "./Components/Login";
 import SignUp from "./Components/SignUp";
 import ForgotPassword from "./Components/ForgotPassword";
 import OtpVerification from "./Components/OtpVerification";
-import AdminLogin from "./Components/AdminLogin"; // Import AdminLogin component
-import AdminDashboard from "./Components/AdminDashboard"; // Import AdminDashboard component
+import AdminLogin from "./Components/AdminLogin"; 
+import AdminDashboard from "./Components/AdminDashboard"; 
+import ManageUsers from "./Components/ManageUsers";
+import Reports from "./Components/Reports";
+import Settings from "./Components/Settings";
 
 const App = () => {
   return (
     <Router>
-      <div className="relative w-full h-screen bg-cover bg-center" style={{ backgroundImage: "url('/image/background.jpg')" }}>
+      <div className="min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/image/background.jpg')" }}>
+
         <Logo />
         
         {/* Only render Navbar for non-admin routes */}
@@ -26,6 +30,9 @@ const App = () => {
           {/* Admin Routes */}
           <Route path="/admin" element={<AdminLogin />} /> {/* Admin Login (No Navbar) */}
           <Route path="/admin-dashboard" element={<AdminDashboard />} /> {/* Admin Dashboard (No Navbar) */}
+          <Route path="/manage-users" element={<ManageUsers />} /> {/* Manage Users Page */}
+          <Route path="/reports" element={<Reports />} /> {/* Reports Page */}
+          <Route path="/settings" element={<Settings />} /> {/* Settings Page */}
         </Routes>
       </div>
     </Router>

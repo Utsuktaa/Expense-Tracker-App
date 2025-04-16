@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Logo from "./Logo";
 
 const AdminDashboard = () => {
@@ -13,7 +13,7 @@ const AdminDashboard = () => {
     <div className="admin-dashboard" style={{ backgroundColor: "#F5F5F5" }}>
       <div className="flex">
         {/* Sidebar */}
-        <div className="w-64 bg-gray-800 text-white min-h-screen p-4 relative">
+        <div className="w-64 bg-gray-800 text-white min-h-screen p-6 relative">
           {/* Logo (Clicking it redirects to home page) */}
           <Logo />
 
@@ -21,24 +21,36 @@ const AdminDashboard = () => {
           <h2 className="text-2xl font-semibold mt-20 mb-6">Admin Panel</h2>
           <ul>
             <li>
-              <button className="w-full text-left text-lg py-2 px-4 hover:bg-gray-700">
+              <Link
+                to="/admin-dashboard"
+                className="block text-lg py-2 px-4 hover:bg-gray-700"
+              >
                 Dashboard
-              </button>
+              </Link>
             </li>
             <li>
-              <button className="w-full text-left text-lg py-2 px-4 hover:bg-gray-700">
+              <Link
+                to="/manage-users"
+                className="block text-lg py-2 px-4 hover:bg-gray-700"
+              >
                 Manage Users
-              </button>
+              </Link>
             </li>
             <li>
-              <button className="w-full text-left text-lg py-2 px-4 hover:bg-gray-700">
+              <Link
+                to="/reports"
+                className="block text-lg py-2 px-4 hover:bg-gray-700"
+              >
                 Reports
-              </button>
+              </Link>
             </li>
             <li>
-              <button className="w-full text-left text-lg py-2 px-4 hover:bg-gray-700">
+              <Link
+                to="/settings"
+                className="block text-lg py-2 px-4 hover:bg-gray-700"
+              >
                 Settings
-              </button>
+              </Link>
             </li>
           </ul>
         </div>
