@@ -1,5 +1,13 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  background-color: white; /* Default background */
+}
+
+.App.with-bg {
+  background-image: url('your-background-image.jpg'); /* Replace with your image */
+  background-size: cover;
+  background-position: center;
 }
 
 .App-logo {
@@ -14,7 +22,6 @@
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -26,6 +33,18 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.add-expense-btn {
+  /* Style your button to ensure it's visible on both backgrounds */
+  background-color: #61dafb;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 10; /* Ensure it stays above other elements */
 }
 
 @keyframes App-logo-spin {
