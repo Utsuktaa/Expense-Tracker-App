@@ -1,25 +1,30 @@
+// Import React Router utilities for navigation and linking
 import { useNavigate, Link } from "react-router-dom";
-import Logo from "../Components/Logo";
 
+// Import the Logo component
+import Logo from "../Components/Logo";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
 
   // Handle logout and redirect to home page
   const handleLogout = () => {
-    navigate("/");
+    navigate("/"); // Redirect to home on logout
   };
 
   return (
+    // Wrapper div with light background color
     <div className="admin-dashboard" style={{ backgroundColor: "#F5F5F5" }}>
       <div className="flex">
-        {/* Sidebar */}
+        {/* Sidebar Section */}
         <div className="w-64 bg-gray-800 text-white min-h-screen p-6 relative">
-          {/* Logo (Clicking it redirects to home page) */}
+          {/* Logo - usually links back to home or dashboard */}
           <Logo />
 
-          {/* Sidebar Navigation */}
+          {/* Sidebar Navigation Heading */}
           <h2 className="text-2xl font-semibold mt-20 mb-6">Admin Panel</h2>
+
+          {/* Navigation Links */}
           <ul>
             <li>
               <Link
@@ -56,25 +61,29 @@ const AdminDashboard = () => {
           </ul>
         </div>
 
-        {/* Main Content */}
+        {/* Main Content Area */}
         <div className="flex-1 p-8">
+          {/* Dashboard Title */}
           <h1 className="text-4xl font-bold text-center mb-4">
             Admin Dashboard
           </h1>
 
-          {/* Dashboard Stats */}
+          {/* Quick Stats Section */}
           <div className="grid grid-cols-2 gap-6">
+            {/* Total Users */}
             <div className="bg-white p-6 rounded shadow-md">
               <h2 className="text-2xl font-semibold">Total Users</h2>
               <p className="text-lg mt-2">1,234</p>
             </div>
+
+            {/* Total Revenue */}
             <div className="bg-white p-6 rounded shadow-md">
               <h2 className="text-2xl font-semibold">Total Revenue</h2>
               <p className="text-lg mt-2">$12,345.67</p>
             </div>
           </div>
 
-          {/* Recent Activity */}
+          {/* Recent Activity Log */}
           <div className="mt-8">
             <h2 className="text-2xl font-semibold">Recent Activity</h2>
             <ul className="mt-4">

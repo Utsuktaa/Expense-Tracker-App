@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Logo from "../Components/Logo";
 
 const ForgotPassword = () => {
   const [input, setInput] = useState(""); // For email or phone number
@@ -12,11 +13,16 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-cover bg-center" style={{ backgroundImage: "url('/your-background-image.jpg')" }}>
+    <div
+      className="flex items-center justify-center h-screen bg-cover bg-center"
+      style={{ backgroundImage: "url('/image/background.jpg')" }}
+    >
+      <Logo />
+      
       <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md w-96 bg-opacity-80">
         <h2 className="text-3xl font-bold mb-6 text-center">Forgot Password</h2>
 
-        <label className="block mb-2">Enter Email or Phone Number</label>
+        <label className="block mb-2">Enter Email </label>
         <input
           type="text"
           value={input}

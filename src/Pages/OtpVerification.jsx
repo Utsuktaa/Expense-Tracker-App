@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Logo from "../Components/Logo";
 
 const OtpVerification = () => {
   const [otp, setOtp] = useState(""); // State for OTP input
@@ -21,7 +22,12 @@ const OtpVerification = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-cover bg-center" style={{ backgroundImage: "url('/your-background-image.jpg')" }}>
+    <div
+      className="flex items-center justify-center h-screen bg-cover bg-center"
+      style={{ backgroundImage: "url('/image/background.jpg')" }}
+    >
+<Logo />
+
       <form className="bg-white p-8 rounded-lg shadow-md w-96 bg-opacity-80">
         <h2 className="text-3xl font-bold mb-6 text-center">Enter OTP</h2>
 

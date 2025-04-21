@@ -1,8 +1,10 @@
+// Import necessary modules from React and libraries
 import { Link } from "react-router-dom";
 import { useRef } from "react";
 import * as XLSX from "xlsx";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
+// Dummy data used to populate chart and table
 const dummyData = [
   { name: "John Doe", revenue: 4000, logins: 25 },
   { name: "Jane Smith", revenue: 3200, logins: 18 },
@@ -10,18 +12,20 @@ const dummyData = [
 ];
 
 const Reports = () => {
+  // useRef for referring to the table, useful for advanced export handling if needed
   const tableRef = useRef(null);
 
+  // Function to export dummy data as Excel file
   const exportToExcel = () => {
-    const ws = XLSX.utils.json_to_sheet(dummyData);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Report");
-    XLSX.writeFile(wb, "Admin_Report.xlsx");
+    const ws = XLSX.utils.json_to_sheet(dummyData); // Convert JSON to worksheet
+    const wb = XLSX.utils.book_new(); // Create a new workbook
+    XLSX.utils.book_append_sheet(wb, ws, "Report"); // Add worksheet to workbook
+    XLSX.writeFile(wb, "Admin_Report.xlsx"); // Trigger file download
   };
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      {/* Sidebar */}
+      {/* Sidebar Navigation */}
       <div className="w-64 bg-[#1e293b] text-white p-6">
         <h2 className="text-2xl font-semibold mt-20 mb-6">Admin Panel</h2>
         <nav className="space-y-4">
@@ -40,9 +44,9 @@ const Reports = () => {
         </nav>
       </div>
 
-      {/* Main Content */}
+      {/* Main Content Area */}
       <div className="flex-1 p-8 space-y-8">
-        {/* Logo + Heading */}
+        {/* Export Button */}
         <div className="flex items-center justify-between mb-6">
           <button
             onClick={exportToExcel}
@@ -52,9 +56,10 @@ const Reports = () => {
           </button>
         </div>
 
+        {/* Title */}
         <h2 className="text-3xl font-bold text-center">Reports</h2>
 
-        {/* Chart */}
+        {/* Bar Chart for Revenue Overview */}
         <div className="bg-white rounded shadow p-6">
           <h3 className="text-xl font-semibold mb-4">Revenue Overview</h3>
           <ResponsiveContainer width="100%" height={300}>
@@ -67,7 +72,7 @@ const Reports = () => {
           </ResponsiveContainer>
         </div>
 
-        {/* Table */}
+        {/* Table of User Activity */}
         <div className="bg-white rounded shadow p-6">
           <h3 className="text-xl font-semibold mb-4">User Activity</h3>
           <div ref={tableRef} className="overflow-x-auto">
