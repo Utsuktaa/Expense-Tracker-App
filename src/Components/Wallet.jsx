@@ -10,8 +10,9 @@ const Wallet = () => {
       boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
     }}>
       <h3>Wallet</h3>
-      <p><strong>Available Funds:</strong> €10,000.00</p>
-      <p><strong>Last Deposit:</strong> €1,500.00</p>
+      <p><strong>Available Funds:</strong> Rs 0.00</p>
+      <p><strong>Last Deposit:</strong> Rs 0.00</p>
+      <p><strong>Last Withdrawal:</strong> Rs 0.00</p>
     </div>
   );
 };

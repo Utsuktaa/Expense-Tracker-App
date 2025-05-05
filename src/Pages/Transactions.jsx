@@ -17,17 +17,17 @@ import Accounts from "../Components/Accounts";
 import FinancialCharts from "../Components/FinancialCharts";
 
 const data = [
-  { name: "Income", value: 1452, color: "#22c55e" },
-  { name: "Expenses", value: Math.round(617.29), color: "#ef4444" },
+  { name: "Income", value: 0, color: "#22c55e" },
+  { name: "Expenses", value: 0, color: "#ef4444" },
 ];
 
 const balanceData = [
-  { date: "Apr 1", balance: 11000 },
-  { date: "Apr 8", balance: 11500 },
-  { date: "Apr 15", balance: 12000 },
-  { date: "Apr 22", balance: 12500 },
-  { date: "May 1", balance: 13000 },
-  { date: "May 10", balance: 14000 },
+  { date: "Apr 1", balance: 0 },
+  { date: "Apr 8", balance: 0 },
+  { date: "Apr 15", balance: 0 },
+  { date: "Apr 22", balance: 0 },
+  { date: "May 1", balance: 0 },
+  { date: "May 10", balance: 0 },
 ];
 
 function Transactions() {
@@ -53,11 +53,11 @@ function Transactions() {
                 <h3 className="text-xl font-bold mb-2">Summary</h3>
                 <p>
                   Balance:{" "}
-                  <span className="text-green-600 font-bold">€13,627.71</span>
+                  <span className="text-green-600 font-bold">Rs 0.00</span>
                 </p>
                 <p>
                   Credit Cards:{" "}
-                  <span className="text-red-600 font-bold">-€249.00</span>
+                  <span className="text-red-600 font-bold">Rs 0.00</span>
                 </p>
               </div>
               <div className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col items-center">

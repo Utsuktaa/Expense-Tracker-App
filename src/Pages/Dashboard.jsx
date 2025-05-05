@@ -10,7 +10,7 @@ const Dashboard = () => {
         display: "flex",
         height: "100vh",
         width: "100%",
-        backgroundColor: "#ffffff",
+        backgroundColor: "#f8f9fa", // light gray background
       }}
     >
       {/* Sidebar */}
@@ -35,25 +35,57 @@ const Dashboard = () => {
           padding: "20px",
           display: "flex",
           flexDirection: "column",
+          gap: "20px",
         }}
       >
-        <Summary />
+        <Summary
+          style={{
+            backgroundColor: "#fff",
+            borderRadius: "10px",
+            padding: "15px",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+          }}
+        />
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
-            marginTop: "20px",
           }}
         >
-          <Wallet />
+          <Wallet
+            style={{
+              backgroundColor: "#fff",
+              borderRadius: "10px",
+              padding: "15px",
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+            }}
+          />
         </div>
-        <div style={{ marginTop: "20px" }}>
+        <div
+          style={{
+            backgroundColor: "#fff",
+            borderRadius: "10px",
+            padding: "15px",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+          }}
+        >
           <BarChartComponent />
         </div>
       </div>
 
-      {/* <Transactions/ > */}
-      <IncomeExpenseForm />
+      {/* Income/Expense Form */}
+      <div
+        style={{
+          width: "300px",
+          backgroundColor: "#ffffff",
+          padding: "20px",
+          margin: "20px",
+          borderRadius: "12px",
+          boxShadow: "0 2px 12px rgba(0,0,0,0.15)",
+        }}
+      >
+        <IncomeExpenseForm />
+      </div>
     </div>
   );
 };

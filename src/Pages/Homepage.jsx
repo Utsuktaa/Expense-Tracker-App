@@ -84,8 +84,8 @@ function Homepage() {
             color: "#666",
           }}
         >
-          Your current balance is <strong>€13,627.71</strong>, with{" "}
-          <strong>€249.00</strong> in credit card debt.
+          Your current balance is <strong>Rs 0.00</strong> with{" "}
+          <strong>Rs 0.00</strong> in credit cards.
         </p>
       </section>
     </div>

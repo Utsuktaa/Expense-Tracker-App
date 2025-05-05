@@ -88,7 +88,7 @@ const Reports = () => {
                 {dummyData.map((user, index) => (
                   <tr key={index} className="border-t">
                     <td className="px-4 py-2">{user.name}</td>
-                    <td className="px-4 py-2">${user.revenue.toLocaleString()}</td>
+                    <td className="px-4 py-2">Rs{user.revenue.toLocaleString()}</td>
                     <td className="px-4 py-2">{user.logins}</td>
                   </tr>
                 ))}

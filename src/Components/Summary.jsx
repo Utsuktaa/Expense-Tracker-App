@@ -10,8 +10,9 @@ const Summary = () => {
       marginBottom: '20px',
     }}>
       <h3>Financial Summary</h3>
-      <p><strong>Current Balance:</strong> €13,627.71</p>
-      <p><strong>Credit Card Debt:</strong> €249.00</p>
+      <p><strong>Current Balance:</strong> Rs 0.00</p>
+      <p><strong>Credit Card Debt:</strong> Rs 0.00</p>
+      <p><strong>Total Income:</strong> Rs 0.00</p> 
     </div>
   );
 };

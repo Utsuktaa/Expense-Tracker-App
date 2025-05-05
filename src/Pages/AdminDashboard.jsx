@@ -1,11 +1,36 @@
 // Import React Router utilities for navigation and linking
 import { useNavigate, Link } from "react-router-dom";
 
+// Import React hooks and axios for fetching data
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 // Import the Logo component
 import Logo from "../Components/Logo";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
+
+  // State for dynamic data
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [totalRevenue, setTotalRevenue] = useState(0);
+  const [activityLog, setActivityLog] = useState([]);
+
+  // Fetch data from backend when component mounts
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        const res = await axios.get("/api/admin/dashboard"); // Adjust if needed
+        setTotalUsers(res.data.totalUsers);
+        setTotalRevenue(res.data.totalRevenue);
+        setActivityLog(res.data.recentActivity); // Array of strings
+      } catch (err) {
+        console.error("Failed to fetch dashboard data:", err);
+      }
+    };
+
+    fetchDashboardData();
+  }, []);
 
   // Handle logout and redirect to home page
   const handleLogout = () => {
@@ -18,7 +43,7 @@ const AdminDashboard = () => {
       <div className="flex">
         {/* Sidebar Section */}
         <div className="w-64 bg-gray-800 text-white min-h-screen p-6 relative">
-          {/* Logo - usually links back to home or dashboard */}
+          {/* Logo */}
           <Logo />
 
           {/* Sidebar Navigation Heading */}
@@ -73,13 +98,13 @@ const AdminDashboard = () => {
             {/* Total Users */}
             <div className="bg-white p-6 rounded shadow-md">
               <h2 className="text-2xl font-semibold">Total Users</h2>
-              <p className="text-lg mt-2">1,234</p>
+              <p className="text-lg mt-2">{totalUsers}</p>
             </div>
 
             {/* Total Revenue */}
             <div className="bg-white p-6 rounded shadow-md">
               <h2 className="text-2xl font-semibold">Total Revenue</h2>
-              <p className="text-lg mt-2">$12,345.67</p>
+              <p className="text-lg mt-2">Rs {totalRevenue}</p>
             </div>
           </div>
 
@@ -87,9 +112,17 @@ const AdminDashboard = () => {
           <div className="mt-8">
             <h2 className="text-2xl font-semibold">Recent Activity</h2>
             <ul className="mt-4">
-              <li className="p-4 border-b">User John Doe logged in</li>
-              <li className="p-4 border-b">User Jane Smith updated profile</li>
-              <li className="p-4 border-b">New report generated</li>
+              {activityLog.length === 0 ? (
+                <li className="p-4 border-b text-gray-500 italic">
+                  No activity yet.
+                </li>
+              ) : (
+                activityLog.map((entry, index) => (
+                  <li key={index} className="p-4 border-b">
+                    {entry}
+                  </li>
+                ))
+              )}
             </ul>
           </div>
 
