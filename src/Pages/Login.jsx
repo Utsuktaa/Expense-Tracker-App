@@ -1,27 +1,21 @@
-// Import required modules and components
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginWithGoogle from "../Components/LoginWithGoogle";
-import Logo from "../Components/Logo";
 
 const Login = () => {
-  // State to store email and password input values
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
 
-  const navigate = useNavigate(); // Used for programmatic navigation
-
-  // Handle input changes and update form state
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submission for login
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent page reload
+    e.preventDefault();
     try {
       const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
@@ -33,7 +27,6 @@ const Login = () => {
 
       const data = await response.json();
       if (response.ok) {
-        // Save user info and token in cookies
         document.cookie = `email=${data.email}; path=/; max-age=${
           7 * 24 * 60 * 60
         }`;
@@ -43,31 +36,27 @@ const Login = () => {
         document.cookie = `token=${data.token}; path=/; max-age=${
           7 * 24 * 60 * 60
         }`;
+        document.cookie = `role=${data.role}; path=/; max-age=${
+          7 * 24 * 60 * 60
+        }`;
 
-        // Redirect to homepage after login
         window.location.href = "/";
-        // navigate("/"); // alternative method
-      } else alert(data.message); // Show error message
-    } catch (error) {
-      // Handle fetch/network errors
-    }
+        // navigate("/");
+      } else alert(data.message);
+    } catch (error) {}
   };
 
   return (
-    <div
+     <div
       className="flex items-center justify-center h-screen bg-cover bg-center"
       style={{ backgroundImage: "url('/image/background.jpg')" }}
     >
-      <Logo />
-      
-      {/* Login form container */}
       <form
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded-lg shadow-md w-96 bg-opacity-80"
       >
         <h2 className="text-3xl font-bold mb-6 text-center">Login</h2>
 
-        {/* Email input field */}
         <label className="block mb-2">Email</label>
         <input
           type="email"
@@ -79,7 +68,6 @@ const Login = () => {
           placeholder="Your Email"
         />
 
-        {/* Password input field */}
         <label className="block mb-2">Password</label>
         <input
           type="password"
@@ -91,7 +79,6 @@ const Login = () => {
           placeholder="Your Password"
         />
 
-        {/* Submit button */}
         <button
           type="submit"
           className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700 mb-4"
@@ -101,12 +88,10 @@ const Login = () => {
 
         <div className="text-center mb-4">OR</div>
 
-        {/* Google Login using OAuth */}
-        <GoogleOAuthProvider clientId="174028467941-gsglk91lg6efiv449h6etkunth53gpku.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId="931347685047-es5og9c0land051gpbm4qqc3cfnq576r.apps.googleusercontent.com">
           <LoginWithGoogle />
         </GoogleOAuthProvider>
 
-        {/* Forgot Password link */}
         <p className="text-center">
           <span
             className="text-blue-600 hover:underline cursor-pointer"
@@ -116,7 +101,6 @@ const Login = () => {
           </span>
         </p>
 
-        {/* Signup link */}
         <p className="text-center">
           Create an account?
           <span

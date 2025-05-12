@@ -41,12 +41,11 @@ const SignUp = () => {
   };
 
   return (
-    <div
+     <div
       className="flex items-center justify-center h-screen bg-cover bg-center"
       style={{ backgroundImage: "url('/image/background.jpg')" }}
     >
       <Logo />
-
 
       <form
         onSubmit={handleSubmit}

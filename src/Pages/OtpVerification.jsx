@@ -4,8 +4,6 @@ import Logo from "../Components/Logo";
 
 const OtpVerification = () => {
   const [otp, setOtp] = useState(""); // State for OTP input
-  // Remove the following line if you don't need `isOtpVerified` for now
-  // const [isOtpVerified, setIsOtpVerified] = useState(false); 
   const navigate = useNavigate();
 
   const handleOtpChange = (e) => {
@@ -13,9 +11,9 @@ const OtpVerification = () => {
   };
 
   const handleVerifyOtp = () => {
-    if (otp === "123456") { // Assuming "123456" as a test OTP
+    if (otp === "123456") {
       alert("OTP verified successfully!");
-      navigate("/login"); // Redirect to login page after OTP is verified
+      navigate("/login");
     } else {
       alert("Invalid OTP. Please try again.");
     }
@@ -26,8 +24,7 @@ const OtpVerification = () => {
       className="flex items-center justify-center h-screen bg-cover bg-center"
       style={{ backgroundImage: "url('/image/background.jpg')" }}
     >
-<Logo />
-
+      <Logo />
       <form className="bg-white p-8 rounded-lg shadow-md w-96 bg-opacity-80">
         <h2 className="text-3xl font-bold mb-6 text-center">Enter OTP</h2>
 

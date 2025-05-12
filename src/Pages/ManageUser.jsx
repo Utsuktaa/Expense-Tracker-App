@@ -1,35 +1,28 @@
 import { useState } from "react";
-import { Link } from "react-router-dom"; // For navigation links
+import { Link } from "react-router-dom"; // assuming you're using react-router
 
 const ManageUsers = () => {
-  // State to store list of users
   const [users, setUsers] = useState([
     { id: 1, name: "John Doe", email: "john@example.com" },
   ]);
-
-  // State to track new user input
   const [newUser, setNewUser] = useState({ name: "", email: "" });
 
-  // Handle changes in input fields (name & email)
   const handleChange = (e) => {
     setNewUser({ ...newUser, [e.target.name]: e.target.value });
   };
 
-  // Add a new user to the users list
   const addUser = () => {
     if (newUser.name && newUser.email) {
-      const id = users.length + 1; // Auto-generate ID
+      const id = users.length + 1;
       setUsers([...users, { id, ...newUser }]);
-      setNewUser({ name: "", email: "" }); // Clear input after adding
+      setNewUser({ name: "", email: "" });
     }
   };
 
-  // Delete user by ID
   const deleteUser = (id) => {
     setUsers(users.filter((user) => user.id !== id));
   };
 
-  // Update user info by ID
   const updateUser = (id, updatedUser) => {
     setUsers(
       users.map((user) => (user.id === id ? { ...user, ...updatedUser } : user))
@@ -38,7 +31,7 @@ const ManageUsers = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      {/* Sidebar Navigation */}
+      {/* Sidebar */}
       <div className="w-64 bg-[#1e293b] text-white p-6">
         <h2 className="text-2xl font-semibold mt-20 mb-6">Admin Panel</h2>
         <nav className="space-y-4">
@@ -49,11 +42,11 @@ const ManageUsers = () => {
         </nav>
       </div>
 
-      {/* Main Content Area */}
+      {/* Main Content */}
       <div className="flex-1 p-6">
         <h2 className="text-3xl font-bold mb-6">Manage Users</h2>
 
-        {/* Input form to add a new user */}
+        {/* Add User */}
         <div className="bg-white p-4 rounded shadow mb-6 flex items-center gap-3">
           <input
             type="text"
@@ -79,7 +72,7 @@ const ManageUsers = () => {
           </button>
         </div>
 
-        {/* Table to display list of users */}
+        {/* Users Table */}
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white rounded shadow">
             <thead>
@@ -97,7 +90,6 @@ const ManageUsers = () => {
                   <td className="px-6 py-3">{user.name}</td>
                   <td className="px-6 py-3">{user.email}</td>
                   <td className="px-6 py-3 space-x-2">
-                    {/* Edit Button - prompts to change name & email */}
                     <button
                       onClick={() => {
                         const name = prompt("Enter new name", user.name);
@@ -108,8 +100,6 @@ const ManageUsers = () => {
                     >
                       Edit
                     </button>
-
-                    {/* Delete Button */}
                     <button
                       onClick={() => deleteUser(user.id)}
                       className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"

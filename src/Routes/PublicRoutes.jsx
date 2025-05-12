@@ -15,7 +15,6 @@ const PublicRoutes = () => {
       <Route path="signup" element={<SignUp />} />
       <Route path="otp-verification" element={<OtpVerification />} />
       <Route path="forgot-password" element={<ForgotPassword />} />
-      
     </Routes>
   );
 };

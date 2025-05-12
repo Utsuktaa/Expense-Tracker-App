@@ -18,11 +18,13 @@ const ForgotPassword = () => {
       style={{ backgroundImage: "url('/image/background.jpg')" }}
     >
       <Logo />
-      
-      <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md w-96 bg-opacity-80">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-8 rounded-lg shadow-md w-96 bg-opacity-80"
+      >
         <h2 className="text-3xl font-bold mb-6 text-center">Forgot Password</h2>
 
-        <label className="block mb-2">Enter Email </label>
+        <label className="block mb-2">Enter Email or Phone Number</label>
         <input
           type="text"
           value={input}

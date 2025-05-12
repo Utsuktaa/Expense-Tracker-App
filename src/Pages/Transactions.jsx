@@ -1,34 +1,11 @@
 import { useState } from "react";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
 import Overview from "../Components/Overview";
 import Budgets from "../Components/Budgets";
 import Accounts from "../Components/Accounts";
 import FinancialCharts from "../Components/FinancialCharts";
 
-const data = [
-  { name: "Income", value: 0, color: "#22c55e" },
-  { name: "Expenses", value: 0, color: "#ef4444" },
-];
-
-const balanceData = [
-  { date: "Apr 1", balance: 0 },
-  { date: "Apr 8", balance: 0 },
-  { date: "Apr 15", balance: 0 },
-  { date: "Apr 22", balance: 0 },
-  { date: "May 1", balance: 0 },
-  { date: "May 10", balance: 0 },
-];
+import PieChart from "../Components/PieCharts";
+import LineChart from "../Components/LineCharts";
 
 function Transactions() {
   const [showPage, setShowPage] = useState(true);
@@ -53,42 +30,15 @@ function Transactions() {
                 <h3 className="text-xl font-bold mb-2">Summary</h3>
                 <p>
                   Balance:{" "}
-                  <span className="text-green-600 font-bold">Rs 0.00</span>
+                  <span className="text-green-600 font-bold">Rs. 0</span>
                 </p>
                 <p>
                   Credit Cards:{" "}
-                  <span className="text-red-600 font-bold">Rs 0.00</span>
+                  <span className="text-red-600 font-bold">Rs. 0</span>
                 </p>
               </div>
-              <div className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col items-center">
-                <h3 className="text-xl font-bold mb-2">This Month</h3>
-                <PieChart width={250} height={250}>
-                  <Pie data={data} dataKey="value" outerRadius={90}>
-                    {data.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </div>
-              <div className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                <h3 className="text-xl font-bold mb-2">Balance</h3>
-                <ResponsiveContainer width="100%" height={170}>
-                  <LineChart data={balanceData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
-                    <YAxis />
-                    <Tooltip />
-                    <Line
-                      type="monotone"
-                      dataKey="balance"
-                      stroke="#2563eb"
-                      strokeWidth={3}
-                      dot={{ r: 4 }}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
+              <PieChart />
+              <LineChart />
             </div>
             <Overview />
             <Accounts />

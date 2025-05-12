@@ -1,17 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-const initialState = {
-  amount: "",
-  date: new Date().toISOString().split("T")[0],
-  description: "",
-  category: "",
-};
+import { initialState } from "../Pages/IncomeAndExpense";
 
-export default function IncomeExpenseForm() {
+export default function IncomeExpenseForm({
+  isEditMode,
+  formData,
+  setFormData,
+  setIncomes,
+  setExpenses,
+  incomes,
+  expenses,
+  setIsEditMode,
+}) {
   const [type, setType] = useState("income"); // 'income' or 'expense'
   const token = Cookies.get("token");
-
-  const [formData, setFormData] = useState(initialState);
 
   const categories = [
     "Salary",
@@ -32,29 +34,37 @@ export default function IncomeExpenseForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isEditMode === false) {
+      const response = await fetch(
+        `http://localhost:5000/api/transactions/${
+          type === "income" ? "add-income" : "add-expense"
+        }`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
 
-    if (type === "income") {
-      const response = await fetch(
-        "http://localhost:5000/api/transactions/add-income",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(formData),
-        }
-      );
-      if (response.ok) {
-        setFormData(initialState);
-        const data = await response.json();
+        type === "income"
+          ? setIncomes((prevData) => [data.income, ...prevData])
+          : setExpenses((prevData) => [data.expense, ...prevData]);
+
         alert(data.message);
+        setFormData(initialState);
       }
-    } else if (type === "expense") {
+    } else {
       const response = await fetch(
-        "http://localhost:5000/api/transactions/add-expense",
+        `http://localhost:5000/api/transactions/${
+          type === "income" ? "update-income" : "update-expense"
+        }/${formData._id}`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -63,15 +73,28 @@ export default function IncomeExpenseForm() {
         }
       );
       if (response.ok) {
-        setFormData(initialState);
         const data = await response.json();
+        if (type === "income") {
+          const newIncomes = incomes.map((income) =>
+            income._id === data.updatedIncome._id ? data.updatedIncome : income
+          );
+          setIncomes(newIncomes);
+        } else {
+          const newExpenses = expenses.map((expense) =>
+            expense._id === data.updatedExpense._id
+              ? data.updatedExpense
+              : expense
+          );
+          setExpenses(newExpenses);
+        }
+
         alert(data.message);
+        setFormData(initialState);
       }
     }
   };
-
   return (
-    <div className="max-w-md mx-auto mt-10 bg-white shadow-xl rounded-xl p-6">
+    <div className="w-80 mx-auto mt-10 bg-white shadow-xl rounded-xl p-6">
       <div className="flex justify-between mb-6">
         <button
           onClick={() => setType("income")}
@@ -153,7 +176,18 @@ export default function IncomeExpenseForm() {
               : "bg-red-500 hover:bg-red-600"
           }`}
         >
-          Add {type.charAt(0).toUpperCase() + type.slice(1)}
+          {isEditMode ? "Edit" : "Add"}{" "}
+          {type.charAt(0).toUpperCase() + type.slice(1)}
+        </button>
+        <button
+          type="button"
+          className={`w-full py-2 rounded-md font-semibold text-white transition bg-gray-500 hover:bg-black-600`}
+          onClick={() => {
+            setIsEditMode(false);
+            setFormData(initialState);
+          }}
+        >
+          Clear
         </button>
       </form>
     </div>
