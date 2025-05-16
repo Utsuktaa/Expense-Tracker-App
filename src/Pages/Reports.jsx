@@ -2,14 +2,7 @@
 import { Link } from "react-router-dom";
 import { useRef } from "react";
 import * as XLSX from "xlsx";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 // Dummy data used to populate chart and table
 const dummyData = [
@@ -42,10 +35,7 @@ const Reports = () => {
           <Link to="/manageuser" className="block hover:text-gray-300">
             Manage Users
           </Link>
-          <Link
-            to="/reports"
-            className="block hover:text-gray-300 font-bold underline"
-          >
+          <Link to="/reports" className="block hover:text-gray-300 font-bold underline">
             Reports
           </Link>
           <Link to="/settings" className="block hover:text-gray-300">
@@ -98,9 +88,7 @@ const Reports = () => {
                 {dummyData.map((user, index) => (
                   <tr key={index} className="border-t">
                     <td className="px-4 py-2">{user.name}</td>
-                    <td className="px-4 py-2">
-                      Rs{user.revenue.toLocaleString()}
-                    </td>
+                    <td className="px-4 py-2">Rs{user.revenue.toLocaleString()}</td>
                     <td className="px-4 py-2">{user.logins}</td>
                   </tr>
                 ))}

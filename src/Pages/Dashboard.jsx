@@ -1,4 +1,5 @@
 import BarChartComponent from "../Components/BarChart";
+import IncomeExpenseForm from "../Components/IncomeExpenseForm";
 import Summary from "../Components/Summary";
 import Wallet from "../Components/Wallet";
 
@@ -9,7 +10,7 @@ const Dashboard = () => {
         display: "flex",
         height: "100vh",
         width: "100%",
-        backgroundColor: "#ffffff",
+        backgroundColor: "#f8f9fa", // light gray background
       }}
     >
       {/* Sidebar */}
@@ -71,7 +72,22 @@ const Dashboard = () => {
           <BarChartComponent />
         </div>
       </div>
+
+      {/* Income/Expense Form */}
+      <div
+        style={{
+          width: "300px",
+          backgroundColor: "#ffffff",
+          padding: "20px",
+          margin: "20px",
+          borderRadius: "12px",
+          boxShadow: "0 2px 12px rgba(0,0,0,0.15)",
+        }}
+      >
+        <IncomeExpenseForm />
+      </div>
     </div>
   );
 };
+
 export default Dashboard;

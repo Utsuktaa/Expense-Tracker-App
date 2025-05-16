@@ -1,42 +1,21 @@
-import React, { useEffect, useState } from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
-import Cookies from "js-cookie";
+import React from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+
+// Dummy data for the bar chart
+const data = [
+  { name: 'January', income: 0,expenses: 0 },
+  { name: 'February', income: 0, expenses: 0 },
+  { name: 'March', income: 0, expenses: 0 },
+  { name: 'April', income: 0, expenses: 0 },
+  { name: 'May', income: 0, expenses: 0 },
+];
 
 const BarChartComponent = () => {
-  const token = Cookies.get("token");
-  const [incomeVsExpense, setIncomesVsExpense] = useState([]);
-
-  useEffect(() => {
-    const getIncomeVsExpense = async () => {
-      const response = await fetch(
-        "http://localhost:5000/api/chart/incomeVsExpense",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const data = await response.json();
-      setIncomesVsExpense(data);
-    };
-    getIncomeVsExpense();
-  }, []);
   return (
-    <div style={{ marginTop: "30px" }}>
+    <div style={{ marginTop: '30px' }}>
       <h3>Monthly Income vs Expenses</h3>
       <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={incomeVsExpense}>
+        <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />

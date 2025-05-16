@@ -1,9 +1,10 @@
-import { Pen, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
-const IncomeTable = ({ setIsEditMode, setFormData, setIncomes, incomes }) => {
+const IncomeTable = () => {
   const token = Cookies.get("token");
+  const [incomes, setIncomes] = useState([]);
 
   useEffect(() => {
     const getIncome = async () => {
@@ -39,7 +40,6 @@ const IncomeTable = ({ setIsEditMode, setFormData, setIncomes, incomes }) => {
       setIncomes(newIncomes);
     }
   };
-
   return (
     <div className="overflow-x-auto mt-8">
       <h1 className="text-4xl mb-2">Income</h1>
@@ -48,13 +48,11 @@ const IncomeTable = ({ setIsEditMode, setFormData, setIncomes, incomes }) => {
           <tr className="bg-green-500 text-white text-left">
             <th className="py-3 px-4">S.No</th>
             <th className="py-3 px-4">Category</th>
-            <th className="py-3 px-4">Amount</th>
             <th className="py-3 px-4">Date</th>
             <th className="py-3 px-4">Description</th>
-            <th className="py-3 px-4"></th>
+            <th />
           </tr>
         </thead>
-
         <tbody>
           {incomes.length > 0 ? (
             incomes.map((income, index) => (
@@ -64,22 +62,12 @@ const IncomeTable = ({ setIsEditMode, setFormData, setIncomes, incomes }) => {
               >
                 <td className="py-2 px-4">{index + 1}</td>
                 <td className="py-2 px-4">{income.category}</td>
-                <td className="py-2 px-4">{income.amount}</td>
                 <td className="py-2 px-4">
                   {new Date(income.date).toISOString().split("T")[0]}
                 </td>
                 <td className="py-2 px-4">{income.description}</td>
-                <td className="flex gap-2 py-2 px-4">
+                <td className="py-2 px-4">
                   <Trash2 onClick={() => handleDelete(income._id)} />
-                  <Pen
-                    onClick={() => {
-                      setIsEditMode(true);
-                      setFormData({
-                        ...income,
-                        date: new Date(income.date).toISOString().split("T")[0],
-                      });
-                    }}
-                  />
                 </td>
               </tr>
             ))

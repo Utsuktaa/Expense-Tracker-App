@@ -4,24 +4,12 @@ const LoginWithGoogle = () => {
   const responseGoogle = async (authResult) => {
     try {
       if (authResult.code) {
+        console.log(authResult.code);
         const response = await fetch(
           `http://localhost:5000/api/auth/google?code=${authResult.code}`,
           { method: "GET" }
         );
-        const data = await response.json();
-        if (response.ok) {
-          document.cookie = `email=${data.email}; path=/; max-age=${
-            7 * 24 * 60 * 60
-          }`;
-          document.cookie = `name=${data.name}; path=/; max-age=${
-            7 * 24 * 60 * 60
-          }`;
-          document.cookie = `token=${data.token}; path=/; max-age=${
-            7 * 24 * 60 * 60
-          }`;
-          window.location.href = "/";
-          // navigate("/");
-        } else alert(data.message);
+        console.log("here");
       } else {
         console.log(authResult);
         throw new Error(authResult);
