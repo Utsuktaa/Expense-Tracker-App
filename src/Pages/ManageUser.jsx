@@ -76,7 +76,7 @@ const ManageUsers = () => {
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
       <aside className="w-64 bg-gray-800 text-white flex flex-col p-6">
-        <div className="mb-8">
+        <div className="mb-20">
           <Logo />
         </div>
 

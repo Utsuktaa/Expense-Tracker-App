@@ -4,12 +4,14 @@ const LoginWithGoogle = () => {
   const responseGoogle = async (authResult) => {
     try {
       if (authResult.code) {
+        console.log(authResult.code);
         const response = await fetch(
           `http://localhost:5000/api/auth/google?code=${authResult.code}`,
           { method: "GET" }
         );
         const data = await response.json();
         if (response.ok) {
+          console.log(data);
           document.cookie = `email=${data.email}; path=/; max-age=${
             7 * 24 * 60 * 60
           }`;

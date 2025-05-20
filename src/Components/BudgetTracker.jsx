@@ -167,7 +167,7 @@ const BudgetTracker = () => {
       </div>
       <p style={{ marginTop: "5px" }}>
         Rs.{typeof weeklySpent === "number" ? weeklySpent.toFixed(2) : "0.00"} /
-        Rs.{weeklyBudget}
+        ${weeklyBudget}
       </p>
     </div>
   );

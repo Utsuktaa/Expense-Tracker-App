@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ConfirmModal from "../Components/ConfirmModal";
 import {
   BarChart,
   Bar,
@@ -151,12 +152,23 @@ const AdminDashboard = () => {
   }));
   const location = useLocation();
   const isActive = (path) => location.pathname.startsWith(path);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const handleSignOut = () => {
+    setShowConfirm(true);
+  };
+
+  const confirmSignOut = () => {
+    Object.keys(Cookies.get()).forEach((cookieName) => {
+      Cookies.remove(cookieName);
+    });
+    window.location.href = "/";
+  };
   return (
     <div className="admin-dashboard" style={{ backgroundColor: "#F5F5F5" }}>
       <div className="admin-dashboard bg-gray-100 min-h-screen flex">
         {/* Sidebar */}
         <aside className="w-64 bg-gray-800 text-white flex flex-col p-6">
-          <div className="mb-8">
+          <div className="mb-20">
             <Logo />
           </div>
 
@@ -202,11 +214,18 @@ const AdminDashboard = () => {
                 {/* Logout Button */}
                 <div className="w-full">
                   <button
-                    onClick={handleLogout}
+                    onClick={handleSignOut}
                     className="w-full text-left text-base py-2 px-4 rounded transition-colors duration-200 hover:bg-gray-700"
                   >
                     Logout
                   </button>
+                  {showConfirm && (
+                    <ConfirmModal
+                      message="Are you sure you want to log out?"
+                      onConfirm={confirmSignOut}
+                      onCancel={() => setShowConfirm(false)}
+                    />
+                  )}
                 </div>
               </li>
             </ul>
