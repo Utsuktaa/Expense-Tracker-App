@@ -1,10 +1,16 @@
-import { Trash2 } from "lucide-react";
+import React from "react";
+import { Pen, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
-const ExpenseTable = () => {
+const ExpenseTable = ({
+  setIsEditMode,
+  setFormData,
+  setExpenses,
+  expenses,
+  setType,
+}) => {
   const token = Cookies.get("token");
-  const [expenses, setExpenses] = useState([]);
 
   useEffect(() => {
     const getExpense = async () => {
@@ -50,8 +56,11 @@ const ExpenseTable = () => {
           <tr className="bg-red-500 text-white text-left">
             <th className="py-3 px-4">S.No</th>
             <th className="py-3 px-4">Category</th>
+            <th className="py-3 px-4">Amount</th>
             <th className="py-3 px-4">Date</th>
             <th className="py-3 px-4">Description</th>
+            <th className="py-3 px-4"></th>
+
             <th />
           </tr>
         </thead>
@@ -64,12 +73,26 @@ const ExpenseTable = () => {
               >
                 <td className="py-2 px-4">{index + 1}</td>
                 <td className="py-2 px-4">{expense.category}</td>
+                <td className="py-2 px-4">{expense.amount}</td>
                 <td className="py-2 px-4">
                   {new Date(expense.date).toISOString().split("T")[0]}
                 </td>
                 <td className="py-2 px-4">{expense.description}</td>
-                <td className="py-2 px-4">
+
+                <td className="flex gap-2 py-2 px-4">
                   <Trash2 onClick={() => handleDelete(expense._id)} />
+                  <Pen
+                    onClick={() => {
+                      setIsEditMode(true);
+                      setType("expense");
+                      setFormData({
+                        ...expense,
+                        date: new Date(expense.date)
+                          .toISOString()
+                          .split("T")[0],
+                      });
+                    }}
+                  />
                 </td>
               </tr>
             ))

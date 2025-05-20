@@ -1,25 +1,53 @@
-// Importing BrowserRouter to handle routing in the app
 import { BrowserRouter } from "react-router-dom";
-
-// Importing js-cookie to manage browser cookies
 import Cookies from "js-cookie";
-
-// Importing route components for public and protected routes
 import PublicRoutes from "./Routes/PublicRoutes";
 import ProtectedRoutes from "./Routes/ProtectedRoutes";
+import AdminRoutes from "./Routes/AdminRoutes";
+import { useState } from "react";
+import { Toaster } from "react-hot-toast";
 
 function App() {
-  // Retrieving the authentication token from browser cookies
   const token = Cookies.get("token");
+  const role = Cookies.get("role");
+
+  const [dailySpent, setDailySpent] = useState(0);
+  const [weeklySpent, setWeeklySpent] = useState(0);
+
+  const updateSpentAmounts = () => {
+    fetch("http://localhost:5000/api/transactions/get-expense-summary", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setDailySpent(data.dailySpent);
+        setWeeklySpent(data.weeklySpent);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch budget summary:", err.message);
+      });
+  };
 
   return (
-    <BrowserRouter>
-      {/* 
-        If the token exists, render ProtectedRoutes (authenticated user).
-        If the token does not exist, render PublicRoutes (guest user).
-      */}
-      {token ? <ProtectedRoutes /> : <PublicRoutes />}
-    </BrowserRouter>
+    <>
+      <Toaster position="top-right" />
+      <BrowserRouter>
+        {token ? (
+          role === "admin" ? (
+            <AdminRoutes />
+          ) : (
+            <ProtectedRoutes
+              dailySpent={dailySpent}
+              weeklySpent={weeklySpent}
+              updateSpentAmounts={updateSpentAmounts}
+            />
+          )
+        ) : (
+          <PublicRoutes />
+        )}
+      </BrowserRouter>
+    </>
   );
 }
 

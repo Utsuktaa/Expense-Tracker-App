@@ -2,17 +2,14 @@ import { Routes, Route } from "react-router-dom";
 import Dashboard from "../Pages/Dashboard";
 import { useState } from "react";
 import Transactions from "../Pages/Transactions";
+import Homepage from "../Pages/Homepage";
 import NotFound from "../Pages/NotFound";
 import IncomeAndExpense from "../Pages/IncomeAndExpense";
 import Layout from "../HOC/Layout";
-import AdminLogin from "../Pages/AdminLogin";
-import AdminDashboard from "../Pages/AdminDashboard";
-import ManageUsers from "../Pages/ManageUser";
-import Reports from "../Pages/Reports";
-import Settings from "../Pages/Settings";
+import Profile from "../Pages/Profile";
 
-const ProtectedRoutes = () => {
-  const [showPage, setShowPage] = useState(true);
+const ProtectedRoutes = ({ updateSpentAmounts, dailySpent, weeklySpent }) => {
+  const [setShowPage] = useState(true);
 
   return (
     <Routes>
@@ -20,14 +17,19 @@ const ProtectedRoutes = () => {
       <Route path="" element={<Layout />}>
         <Route path="" element={<Dashboard setShowPage={setShowPage} />} />
         <Route path="transactions" element={<Transactions />} />
-        <Route path="income-and-expense" element={<IncomeAndExpense />} />
+        <Route path="homepage" element={<Homepage />} />
+        <Route path="profile" element={<Profile />} />
+        <Route
+          path="income-and-expense"
+          element={
+            <IncomeAndExpense
+              updateSpentAmounts={updateSpentAmounts}
+              dailySpent={dailySpent}
+              weeklySpent={weeklySpent}
+            />
+          }
+        />
       </Route>
-
-      <Route path="admin" element={<AdminLogin />} />
-      <Route path="adminDash" element={<AdminDashboard />} />
-      <Route path="manageuser" element={<ManageUsers />} />
-      <Route path="reports" element= {<Reports />} />
-      <Route path="settings" element={<Settings />} />
     </Routes>
   );
 };

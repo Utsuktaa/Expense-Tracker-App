@@ -1,6 +1,6 @@
 import { useGoogleLogin } from "@react-oauth/google";
 
-const LoginWithGoogle = () => {
+const GoogleSignUp = () => {
   const responseGoogle = async (authResult) => {
     try {
       if (authResult.code) {
@@ -44,9 +44,9 @@ const LoginWithGoogle = () => {
       className="flex items-center justify-center w-full border rounded-lg p-2 hover:bg-gray-200 mb-4"
     >
       <img src="/image/google.png" alt="Google Logo" className="w-5 h-5 mr-3" />
-      Login with Google
+      Sign Up with Google
     </button>
   );
 };
 
-export default LoginWithGoogle;
+export default GoogleSignUp;

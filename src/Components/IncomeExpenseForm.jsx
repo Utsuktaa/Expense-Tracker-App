@@ -1,17 +1,23 @@
-import { useState } from "react";
+import React from "react";
+import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-const initialState = {
-  amount: "",
-  date: new Date().toISOString().split("T")[0],
-  description: "",
-  category: "",
-};
+import { initialState } from "../Pages/IncomeAndExpense";
+import { toast } from "react-hot-toast";
 
-export default function IncomeExpenseForm() {
-  const [type, setType] = useState("income"); // 'income' or 'expense'
+export default function IncomeExpenseForm({
+  isEditMode,
+  formData,
+  setFormData,
+  setIncomes,
+  setExpenses,
+  incomes,
+  expenses,
+  setIsEditMode,
+  type,
+  setType,
+  updateSpentAmounts,
+}) {
   const token = Cookies.get("token");
-
-  const [formData, setFormData] = useState(initialState);
 
   const categories = [
     "Salary",
@@ -32,46 +38,83 @@ export default function IncomeExpenseForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      if (isEditMode === false) {
+        const response = await fetch(
+          `http://localhost:5000/api/transactions/${
+            type === "income" ? "add-income" : "add-expense"
+          }`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(formData),
+          }
+        );
 
-    if (type === "income") {
-      const response = await fetch(
-        "http://localhost:5000/api/transactions/add-income",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(formData),
+        if (!response.ok) {
+          const errData = await response.json();
+          throw new Error(errData.message || "Failed to add transaction");
         }
-      );
-      if (response.ok) {
-        setFormData(initialState);
+
         const data = await response.json();
-        alert(data.message);
-      }
-    } else if (type === "expense") {
-      const response = await fetch(
-        "http://localhost:5000/api/transactions/add-expense",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(formData),
+
+        type === "income"
+          ? setIncomes((prevData) => [data.income, ...prevData])
+          : setExpenses((prevData) => [data.expense, ...prevData]);
+
+        toast.success(data.message);
+        setFormData(initialState);
+        updateSpentAmounts();
+      } else {
+        const response = await fetch(
+          `http://localhost:5000/api/transactions/${
+            type === "income" ? "update-income" : "update-expense"
+          }/${formData._id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(formData),
+          }
+        );
+
+        if (!response.ok) {
+          const errData = await response.json();
+          throw new Error(errData.message || "Failed to update transaction");
         }
-      );
-      if (response.ok) {
-        setFormData(initialState);
+
         const data = await response.json();
-        alert(data.message);
+
+        if (type === "income") {
+          const newIncomes = incomes.map((income) =>
+            income._id === data.updatedIncome._id ? data.updatedIncome : income
+          );
+          setIncomes(newIncomes);
+        } else {
+          const newExpenses = expenses.map((expense) =>
+            expense._id === data.updatedExpense._id
+              ? data.updatedExpense
+              : expense
+          );
+          setExpenses(newExpenses);
+        }
+
+        toast.success(data.message);
+        setFormData(initialState);
+        updateSpentAmounts();
       }
+    } catch (error) {
+      toast.error(error.message);
     }
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 bg-white shadow-xl rounded-xl p-6">
+    <div className="w-80 mx-auto mt-10 bg-white shadow-xl rounded-xl p-6">
       <div className="flex justify-between mb-6">
         <button
           onClick={() => setType("income")}
@@ -153,7 +196,18 @@ export default function IncomeExpenseForm() {
               : "bg-red-500 hover:bg-red-600"
           }`}
         >
-          Add {type.charAt(0).toUpperCase() + type.slice(1)}
+          {isEditMode ? "Edit" : "Add"}{" "}
+          {type.charAt(0).toUpperCase() + type.slice(1)}
+        </button>
+        <button
+          type="button"
+          className={`w-full py-2 rounded-md font-semibold text-white transition bg-gray-500 hover:bg-black-600`}
+          onClick={() => {
+            setIsEditMode(false);
+            setFormData(initialState);
+          }}
+        >
+          Clear
         </button>
       </form>
     </div>

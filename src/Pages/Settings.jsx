@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import Logo from "../Components/Logo";
+import { useLocation } from "react-router-dom";
 
 const Settings = () => {
   const [openSection, setOpenSection] = useState(null);
@@ -13,30 +14,69 @@ const Settings = () => {
   const renderToggleIcon = (section) => {
     return openSection === section ? <FaChevronUp /> : <FaChevronDown />;
   };
-
+const location = useLocation();
+  const isActive = (path) => location.pathname === path;
   return (
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
-      <div className="w-64 bg-[#1e293b] text-white p-6 border-r-2 border-blue-500">
-        <div className="text-3xl font-bold text-green-600 mb-8">
+      <aside className="w-64 bg-gray-800 text-white flex flex-col p-6">
+        <div className="mb-8">
           <Logo />
         </div>
-        <h2 className="text-2xl font-semibold mt-10 mb-6">Admin Panel</h2>
-        <nav className="space-y-6 font-semibold">
-          <Link to="/adminDash" className="block hover:text-gray-300">
-            Dashboard
-          </Link>
-          <Link to="/manageusers" className="block hover:text-gray-300">
-            Manage Users
-          </Link>
-          <Link to="/reports" className="block hover:text-gray-300">
-            Reports
-          </Link>
-          <Link to="/settings" className="block hover:text-gray-300 font-bold underline">
-            Settings
-          </Link>
+
+        <nav className="flex-1">
+          <ul className="space-y-2">
+            <li>
+              <Link
+                to="/"
+                className={`block text-base py-2 px-4 rounded transition-colors duration-200 ${
+                  isActive("/")
+                    ? "bg-gray-700 font-semibold"
+                    : "hover:bg-gray-700"
+                }`}
+              >
+                Dashboard
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/manageuser"
+                className={`block text-base py-2 px-4 rounded transition-colors duration-200 ${
+                  isActive("/manageuser")
+                    ? "bg-gray-700 font-semibold"
+                    : "hover:bg-gray-700"
+                }`}
+              >
+                Manage Users
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/reports"
+                className={`block text-base py-2 px-4 rounded transition-colors duration-200 ${
+                  isActive("/reports")
+                    ? "bg-gray-700 font-semibold"
+                    : "hover:bg-gray-700"
+                }`}
+              >
+                Reports
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/settings"
+                className={`block text-base py-2 px-4 rounded transition-colors duration-200 ${
+                  isActive("/settings")
+                    ? "bg-gray-700 font-semibold"
+                    : "hover:bg-gray-700"
+                }`}
+              >
+                Settings
+              </Link>
+            </li>
+          </ul>
         </nav>
-      </div>
+      </aside>
 
       {/* Main Content */}
       <div className="flex-1 p-10 bg-white">

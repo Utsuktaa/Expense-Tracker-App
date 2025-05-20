@@ -1,6 +1,8 @@
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../Components/Logo";
+import GoogleSignUp from "../Components/GoogleSignUp";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -46,7 +48,6 @@ const SignUp = () => {
       style={{ backgroundImage: "url('/image/background.jpg')" }}
     >
       <Logo />
-
 
       <form
         onSubmit={handleSubmit}
@@ -96,18 +97,9 @@ const SignUp = () => {
 
         <div className="text-center mb-4">OR</div>
 
-        <button
-          type="button"
-          onClick={handleGoogleSignUp}
-          className="flex items-center justify-center w-full border rounded-lg p-2 hover:bg-gray-200 mb-4"
-        >
-          <img
-            src="/image/google.png"
-            alt="Google Logo"
-            className="w-5 h-5 mr-3"
-          />
-          Sign Up with Google
-        </button>
+        <GoogleOAuthProvider clientId="931347685047-es5og9c0land051gpbm4qqc3cfnq576r.apps.googleusercontent.com">
+          <GoogleSignUp />
+        </GoogleOAuthProvider>
 
         <p className="text-center">
           Already have an account?{" "}

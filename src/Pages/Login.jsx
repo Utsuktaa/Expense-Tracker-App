@@ -59,7 +59,7 @@ const Login = () => {
       style={{ backgroundImage: "url('/image/background.jpg')" }}
     >
       <Logo />
-      
+
       {/* Login form container */}
       <form
         onSubmit={handleSubmit}
@@ -105,16 +105,6 @@ const Login = () => {
         <GoogleOAuthProvider clientId="174028467941-gsglk91lg6efiv449h6etkunth53gpku.apps.googleusercontent.com">
           <LoginWithGoogle />
         </GoogleOAuthProvider>
-
-        {/* Forgot Password link */}
-        <p className="text-center">
-          <span
-            className="text-blue-600 hover:underline cursor-pointer"
-            onClick={() => navigate("/forgot-password")}
-          >
-            Forgot Password?
-          </span>
-        </p>
 
         {/* Signup link */}
         <p className="text-center">
